@@ -43,7 +43,7 @@ class App extends react.Component {
 
   render() {
     return (
-      <div style={{ backgroundColor: this.state.color }}>
+      <div style={{ backgroundColor: this.state.color, height: "100vh", width: "100vw" }}>
         <div>
           pageX:{this.state.x}
           <br />
