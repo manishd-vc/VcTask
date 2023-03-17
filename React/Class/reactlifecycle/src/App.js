@@ -6,50 +6,48 @@ class App extends react.Component {
     this.state = {
       x: 0,
       y: 0,
-      color: "pink",
+      color: "white",
     };
   }
 
   componentDidMount() {
-    console.log("component mount");
     document.addEventListener("mousemove", this.onMousePositionChange);
   }
 
   componentWillUnmount() {
-    console.log("component unmount");
+    console.log("in unmount");
     document.removeEventListener("mousemove", this.onMousePositionChange);
   }
 
-  onMousePositionChange = (event) => {
-    let coordinateX = event.clientX;
-    let coordinateY = event.clientY;
-    console.log("x=", coordinateX, " y=", coordinateY);
-    this.setState({
-      x: coordinateX,
-      y: coordinateY,
-    });
-    if (coordinateX > coordinateY) {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.x > prevState.y && prevState.color !== "yellow") {
       this.setState({
         color: "yellow",
       });
-    } else if (coordinateY > coordinateX) {
+    } else if (prevState.y > prevState.x && prevState.color !== "green") {
       this.setState({
         color: "green",
       });
-    } else if (coordinateY === coordinateX) {
-      this.setState({
-        color: "white",
-      });
     }
+  }
+
+  onMousePositionChange = (event) => {
+    const xCoorindinate = event.clientX;
+    const yCoorindinate = event.clientY;
+    console.log("x=", xCoorindinate, " y=", yCoorindinate);
+    this.setState({
+      x: xCoorindinate,
+      y: yCoorindinate,
+    });
   };
 
   render() {
     return (
-      <div style={{ backgroundColor: this.state.color, height: "100vh", width: "100vw" }}>
+      <div style={{ backgroundColor: this.state.color }}>
         <div>
-          coordinateX:{this.state.x}
+          pageX:{this.state.x}
           <br />
-          coordinateY:{this.state.y}
+          pageY:{this.state.y}
         </div>
       </div>
     );
