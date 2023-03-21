@@ -1,95 +1,133 @@
-import React from "react";
-const countries =
-{
-  india: {
-    gujarat: ["gujarat1", "gujarat2", "gujarat3"],
-    rajasthan: ["rajasthan1", "rajasthan2", "rajasthan3"],
-    maharashtra: ["maharashtra1", "maharashtra2", "maharashtra3"]
-  },
-  UnitedStates: {
-    Alabama: ["Arizona1", "Arizona2", "Arizona3"],
-    Alaska: ["Alaska1", "Alaska2", "Alaska3"],
-    Arizona: ["Arizona1", "Arizona2", "Arizona3"]
-  }
-}
+import React from 'react';
+import './App.css';
 
-const countriesList = Object.keys(countries);
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedState: '',
+      countries: [],
+      states: [],
+      cities: [],
       selectedCountry: '',
-      selectedCity: '',
-      dataOfCountry: countriesList,
-      dataOfState: [],
-      dataOfCity: [],
+      selectedState: '',
     };
-    this.handleCountryChange = this.handleCountryChange.bind(this);
-    this.handleStateChange = this.handleStateChange.bind(this);
+    this.changeCountry = this.changeCountry.bind(this);
+    this.changeState = this.changeState.bind(this);
   }
 
-  handleCountryChange(event) {
-    if (event.target.value === "") {
-      this.setState({
-        dataOfState: []
-      })
-    } else {
-      this.setState({ selectedCountry: event.target.value }, () => {
-        const selectedDataOfCountry = countries[this.state.selectedCountry]
-        const dataOfStateList = Object.keys(selectedDataOfCountry);
+  componentDidMount() {
+    this.setState({
+      countries: [
+        {
+          name: 'india',
+          states: [
+            { name: 'gujarat', cities: ['Ahmadabad', 'Rajkot', 'Surat'] },
+            { name: 'Rajasthan', cities: ['Pali', 'Jaipur', 'Abu'] },
+          ],
+        },
+        {
+          name: 'india2',
+          states: [
+            { name: 'gujarat2', cities: ['Ahmadabad2', 'Rajkot2', 'Surat2'] },
+            { name: 'Rajasthan2', cities: ['Pali2', 'Jaipur2', 'Abu2'] },
+          ],
+        },
+        {
+          name: 'india3',
+          states: [
+            { name: 'gujarat3', cities: ['Ahmadabad3', 'Rajkot3', 'Surat3'] },
+            { name: 'Rajasthan3', cities: ['Pali3', 'Jaipur3', 'Abu3'] },
+          ],
+        },
+      ],
+    });
+  }
 
-        this.setState(
-          {
-            dataOfState: dataOfStateList
-          }
-        )
+  changeCountry(event) {
+    if (event.target.value === '') {
+      this.setState({
+        dataOfCity: [],
+      });
+    } else {
+      this.setState({ selectedCountry: event.target.value });
+      this.setState({
+        states: this.state.countries.find(
+          (item) => item.name === event.target.value
+        ).states,
       });
     }
   }
-  handleStateChange(event) {
-    if (event.target.value === "") {
+
+  changeState(event) {
+    if (event.target.value === '') {
       this.setState({
-        dataOfCity: []
-      })
+        dataOfCity: [],
+      });
     } else {
-      this.setState({ selectedState: event.target.value }, () => {
-        const selectedDataOfState = this.state.selectedState
-        const dataOfCityList = countries[this.state.selectedCountry]?.[selectedDataOfState];
-        this.setState(
-          {
-            dataOfCity: dataOfCityList
-          }
-        )
+      this.setState({ selectedState: event.target.value });
+      const StateList = this.state.countries.find(
+        (item) => item.name === this.state.selectedCountry
+      ).states;
+      this.setState({
+        cities: StateList.find((item) => item.name === event.target.value)
+          .cities,
       });
     }
   }
-
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <select value={this.state.selectedCountry} onChange={this.handleCountryChange}>
-          <option value="">select option</option>
-          {this.state.dataOfCountry.map((item, index) => (
-            <option value={item} key={index}>{item}</option>
-          ))}
-        </select>
-        {console.log("this.state.dataOfState", this.state.dataOfState)}
-        <select value={this.state.selectedState} onChange={this.handleStateChange} >
-          <option value="">select option</option>
-          {this.state.dataOfState.map((item, index) => (
-            <option value={item} key={index}>{item}</option>
-          ))}
-        </select>
-        <select value={this.state.selectedCity} >
-          <option value="">select option</option>
-          {this.state.dataOfCity.map((item, index) => (
-            <option value={item} key={index}>{item}</option>
-          ))}
-        </select>
-        <input type="submit" value="Submit" />
-      </form>
+      <div className='container'>
+        <div className='formGroup'>
+          <label>Country</label>
+          <select
+            className='selectBox'
+            placeholder='Country'
+            value={this.state.selectedCountry}
+            onChange={this.changeCountry}
+          >
+            <option value=''>Country</option>
+            {this.state.countries.map((item, index) => (
+              <option value={item.name} key={index}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className='formGroup'>
+          <label>State</label>
+          {console.log('this.state.states', this.state.states)}
+          <select
+            className='selectBox'
+            placeholder='State'
+            value={this.state.selectedState}
+            onChange={this.changeState}
+            disabled={!this.state.states.length > 0}
+          >
+            <option value=''>State</option>
+            {this.state.states.map((item, index) => (
+              <option value={item.name} key={index}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className='formGroup'>
+          <label>City</label>
+          <select
+            className='selectBox'
+            placeholder='City'
+            disabled={!this.state.cities.length > 0}
+          >
+            <option value=''>City</option>
+            {this.state.cities.map((item, index) => (
+              <option value={item} key={index}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
     );
   }
 }
