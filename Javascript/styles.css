@@ -1,0 +1,90 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+}
+main {
+  width: 500px;
+}
+
+form {
+  width: 100%;
+}
+
+input {
+  padding: 15px;
+  border-radius: 15px;
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #ccc;
+  flex: 1 1 auto;
+}
+
+button {
+  padding: 0;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+}
+
+.inputBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+button svg {
+  width: 40px;
+  display: inline-block;
+  height: 40px;
+  margin-left: 15px;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+ul li {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  background: #e5e5e5;
+  border-radius: 15px;
+}
+
+.taskAction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.taskText {
+  flex: 1 1 auto;
+}
+.editTask {
+  padding: 4px 10px;
+  text-transform: capitalize;
+  margin-left: 15px;
+  background: #363636;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.deleteTask {
+  padding: 4px 10px;
+  text-transform: capitalize;
+  margin-left: 15px;
+  background: #cb1d1d;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+}
