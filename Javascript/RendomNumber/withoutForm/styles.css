@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+}
+.inputBox label {
+  width: 100%;
+  margin: 0 0 10px 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+main {
+  width: 500px;
+}
+
+.sectionMain {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+input {
+  padding: 15px;
+  border-radius: 15px;
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #ccc;
+  flex: 1 1 auto;
+}
+
+.inputBox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+  padding: 0 15px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  justify-content: center;
+  width: 100%;
+}
+
+.actions button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #0aa310;
+}
+
+.actions button + button {
+  margin-left: 15px;
+}
+.actions button.resetButton {
+  background-color: #d31c0e;
+}
+.resultBox {
+  width: 100%;
+  padding: 25px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.resultBox .title {
+  font-size: 18px;
+  width: 100%;
+}
+.resultBox #result {
+  font-size: 26px;
+  width: 100%;
+  font-weight: 600;
+}
