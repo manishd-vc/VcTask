@@ -1,9 +1,13 @@
 "use strict";
-
 window.onload = LoadTasks;
 
 function getLocalStorageTask() {
-  return [...JSON.parse(localStorage.getItem("taskList"))]
+  if (localStorage.getItem("taskList") === null) {
+    return [];
+  } else {
+    return [...JSON.parse(localStorage.getItem("taskList"))]
+
+  }
 }
 
 function renderHtml(value) {
