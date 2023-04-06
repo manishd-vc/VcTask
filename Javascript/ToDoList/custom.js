@@ -21,7 +21,6 @@ function LoadTasks() {
   tasks.forEach(task => {
     const listOfTask = document.querySelector("main ul");
     const singleList = document.createElement("li");
-
     singleList.innerHTML = renderHtml(task.name);
     listOfTask.insertBefore(singleList, listOfTask.children[0]);
   })

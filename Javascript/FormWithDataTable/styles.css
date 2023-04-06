@@ -1,0 +1,82 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+form {
+  width: 900px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  padding: 30px 0;
+}
+
+input {
+  padding: 15px;
+  border-radius: 15px;
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #ccc;
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+button {
+  padding: 15px;
+  border-radius: 15px;
+  color: #ffffff;
+  font-size: 18px;
+  background: #424242;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+  width: 25%;
+}
+
+.inputBox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 25%;
+  padding: 0 15px;
+}
+.inputBox label {
+  width: 100%;
+  margin-bottom: 10px;
+}
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+table {
+  width: 900px;
+  margin: 30px auto 0;
+  text-align: left;
+}
+table td,
+table th {
+  padding: 10px;
+}
+
+.actionButtons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.actionButtons button {
+  flex: 1 1 auto;
+}
+
+button.delete {
+  margin-left: 20px;
+  background: #f44336;
+}
