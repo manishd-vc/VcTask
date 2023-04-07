@@ -1,0 +1,14 @@
+.SelectedPokemonSection .pokemonImage {
+    margin: 0 auto 10px;
+}
+
+.pokemonInfo {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #3761a8;
+    color: #fff;
+    margin: 0 auto 20px;
+    display: flex;
+    flex-wrap: wrap;
+
+}

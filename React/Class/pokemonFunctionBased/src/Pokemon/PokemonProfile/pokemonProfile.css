@@ -1,0 +1,17 @@
+.PokemonProfile {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background-color: #feca1b;
+  margin: auto;
+}
+
+.PokemonProfile img {
+  max-width: 60%;
+  height: auto;
+  max-height: 60%;
+}
