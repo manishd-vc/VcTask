@@ -12,6 +12,7 @@
   border-radius: 30px;
   overflow: hidden;
   cursor: pointer;
+  filter: grayscale(1);
 }
 .sliderItem:hover {
   width: 10%;
@@ -70,7 +71,6 @@
   display: flex;
   flex: 1 1 5%;
   width: 5%;
-  filter: grayscale(1);
 }
 
 .sliderItem.itemShortPreview,
@@ -95,6 +95,7 @@
   display: flex;
   flex: 1 1 auto;
   width: 50%;
+  filter: grayscale(0);
 }
 .sliderItem.selected .image {
   background: radial-gradient(#e66465, #9198e5);

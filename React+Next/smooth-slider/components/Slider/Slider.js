@@ -98,14 +98,12 @@ function Slider() {
           >
             <div className='itemWrapper'>
               <div className='content'>
-                <div className='title'>
-                  {item.title} {index + 1}
-                </div>
+                <div className='title'>{item.title}</div>
                 <div className='description'>{item.description}</div>
               </div>
               <div className='image'>
                 <Image
-                  src={`/sliderImage/headshot-${index + 1}.png`}
+                  src={item.image}
                   alt='image'
                   className='sliderImage'
                   priority
