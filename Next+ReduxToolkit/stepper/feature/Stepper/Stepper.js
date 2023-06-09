@@ -1,10 +1,9 @@
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import StepFirst from './StepFirst';
-import SecondStep from './StepSecond';
 import StepSecond from './StepSecond';
 import StepThird from './StepThird';
 import { setNextStep, setPreviousStep } from './stepperSlice';
-import React from 'react';
 
 const stepContent = [
   {
@@ -24,6 +23,17 @@ const stepContent = [
 const Stepper = () => {
   const dispatch = useDispatch();
   const stepperState = useSelector((state) => state.stepperData);
+  const { userName, designation } = stepperState.selectedUser;
+  const { activeStep, selectedUserId } = stepperState;
+  const getDisabled = () => {
+    if (activeStep === 1 && userName !== '' && designation !== '') {
+      return false;
+    } else if (activeStep === 2 && selectedUserId.length > 0) {
+      return false;
+    } else {
+      return true;
+    }
+  };
   return (
     <div>
       <div className='stepWrapper'>
@@ -54,7 +64,7 @@ const Stepper = () => {
         </button>
         <button
           className='nextButton'
-          disabled={true}
+          disabled={getDisabled()}
           onClick={() => dispatch(setNextStep())}
         >
           Next

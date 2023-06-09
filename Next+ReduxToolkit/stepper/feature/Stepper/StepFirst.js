@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import SelectBox from './SelectBox';
-import { setDesignation, setUser } from './stepperSlice';
+import { updateSelectedUser } from './stepperSlice';
 
 const userOptions = [
   { value: 'manish', label: 'Option 1' },
@@ -18,41 +18,28 @@ const designationOptions = [
 const StepFirst = () => {
   const dispatch = useDispatch();
   const stepperState = useSelector((state) => state.stepperData);
-  console.log('stepperState', stepperState);
+
+  const { userName, designation } = stepperState.selectedUser;
+
   const handleUserChange = (event) => {
-    dispatch(setUser(event.target.value));
-  };
-  const handleDesignationChange = (event) => {
-    dispatch(setDesignation(event.target.value));
+    dispatch(updateSelectedUser({ [event.target.name]: event.target.value }));
   };
   return (
     <div className='firstStep'>
       <SelectBox
-        name='user'
+        name='userName'
         label='select user'
-        value={stepperState.selectedUser}
+        value={userName}
         options={userOptions}
         changeSelect={handleUserChange}
       />
       <SelectBox
         name='designation'
         label='select designation'
-        value={stepperState.selectedDesignation}
+        value={designation}
         options={designationOptions}
-        changeSelect={handleDesignationChange}
+        changeSelect={handleUserChange}
       />
-      {/* <select name='user' id='user'>
-        <option value='manish'>Manish</option>
-        <option value='raj'>Raj</option>
-        <option value='george'>George</option>
-        <option value='krunal'>Krunal</option>
-      </select>
-      <select name='designation' id='designation'>
-        <option value='html'>Html</option>
-        <option value='node'>Node</option>
-        <option value='ionic'>Ionic</option>
-        <option value='react'>React</option>
-      </select> */}
     </div>
   );
 };
