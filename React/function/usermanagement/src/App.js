@@ -3,6 +3,7 @@ import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
 import AddUserForm from './components/AddUserForm';
+import EditUserForm from './components/EditUserForm';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -10,6 +11,7 @@ function App() {
   const [usersPerPage] = useState(3);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [editUserId, setEditUserId] = useState(null);
 
   useEffect(() => {
     axios
@@ -35,9 +37,27 @@ function App() {
       })
       .catch((error) => console.error('Error deleting user:', error));
   };
+
   const handleEditUser = (userId) => {
-    // Implement edit user functionality
+    setEditUserId(userId);
   };
+
+  const handleUpdateUser = (updatedUser) => {
+    axios
+      .put(
+        `https://jsonplaceholder.typicode.com/users/${updatedUser.id}`,
+        updatedUser
+      )
+      .then(() => {
+        // Update the user in the state
+        setUsers(
+          users.map((user) => (user.id === updatedUser.id ? updatedUser : user))
+        );
+        setEditUserId(null); // Clear editUserId to close the edit form
+      })
+      .catch((error) => console.error('Error updating user:', error));
+  };
+
   const handleNextPage = () => {
     if (currentPage < Math.ceil(filteredUsers.length / usersPerPage)) {
       setCurrentPage(currentPage + 1);
@@ -96,7 +116,11 @@ function App() {
               <td>{user.created_at}</td>
               <td>{user.email}</td>
               <td>
-                <button onClick={() => handleEditUser(user.id)}>Edit</button>
+                {editUserId === user.id ? (
+                  <EditUserForm user={user} updateUser={handleUpdateUser} />
+                ) : (
+                  <button onClick={() => handleEditUser(user.id)}>Edit</button>
+                )}
               </td>
               <td>
                 <button onClick={() => handleDeleteUser(user.id)}>
