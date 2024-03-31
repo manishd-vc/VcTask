@@ -1,0 +1,21 @@
+.PokemonInfoCard {
+    width: 100%;
+    max-width: calc(33.3333% - 30px);
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #234070;
+    text-align: center;
+    margin: 15px;
+}
+
+.InfoValue {
+    margin: 0 auto 5px;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: #feca1b;
+}
+
+.InfoTitle {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
