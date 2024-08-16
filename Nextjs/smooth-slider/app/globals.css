@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+}
+* {
+  box-sizing: border-box;
+}
+:root {
+  --sliderWidth: 60%;
+  --sliderHeight: 500px;
+  --text-white: #ffffff;
+  --text-black: #000000;
+}
+
+/* :root {
+  --sliderWidth: 70%;
+  --sliderHeight: 500px;
+  --transition: 0.5s;
+  --container-width: clamp(300px, 80vw, 960px);
+  --brand-hue: 230;
+  --size-1: calc(var(--container-width) * 0.48);
+  --size-2: 0.1;
+  --size-3: calc(var(--container-width) * 0.04);
+} */
