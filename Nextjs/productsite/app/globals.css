@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Full Parallax Slider */
+
+.swiper-slide {
+  @apply bg-cover bg-[center_center] bg-no-repeat;
+}
+.slide-bg {
+  visibility: inherit;
+}
+.swiper-slide-active .slide-bg {
+  @apply animate-zoomInBg;
+}
+
+.slide-bg-inner svg {
+  @apply absolute z-10 w-full h-full stroke-[0.2px] stroke-white fill-none -rotate-90 left-0 top-0;
+  --progress: 0.9;
+  stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
+  stroke-dasharray: 125.6;
+}
+.swiper-slide-active .slide-bg .slide-bg-inner {
+  @apply animate-zoomInInner;
+}
+.slide-main-heading {
+  text-shadow: rgb(11, 18, 54) 3px 3px 15px;
+}
+.from-left,
+.from-right {
+  @apply opacity-0 blur-sm;
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+.swiper-slide-active .from-left {
+  @apply animate-fadeInLeft;
+  animation-delay: 0.8s;
+}
+.swiper-slide-active .from-right {
+  @apply animate-fadeInRight;
+  animation-delay: 1s;
+}
+.swiper-slide-active .slide-main-subheading {
+  @apply animate-fadeInDown;
+  transition: opacity 0.5s ease, filter 0.5s ease;
+  animation-delay: 1.2s;
+}
+
+.swiper-slide-active .slide-des {
+  @apply animate-fadeInUp;
+  transition: opacity 0.5s ease, filter 0.5s ease;
+  animation-delay: 1.4s;
+}
+.slide-cta .slide-btn {
+  @apply leading-[27px] tracking-[0px] font-medium text-lg no-underline bg-[linear-gradient(_to_right,#f7693c,#c74e45,#7d3785,#582d9f,#3928af,#582d9f,#7d3785,#c74e45,#f7693c_)] bg-[200%_auto] text-white inline-block w-auto relative transition-[0.3s] duration-[ease-in-out] opacity-0 m-0 pl-[46px] pr-[70px] py-[18px] rounded-[50px] border-2 border-solid border-transparent hover:shadow-[0_8px_30px_0_rgba(0,0,0,0.15)] hover:bg-[right_center];
+  text-align: inherit;
+}
+.swiper-slide-active .slide-cta .slide-btn {
+  @apply animate-fadeInUp2;
+  transition: opacity 0.5s ease, filter 0.5s ease;
+  animation-delay: 1.4s;
+}
+.slide-cta .slide-btn:hover {
+  -webkit-transform: translate3d(0, -2px, 0);
+  transform: translate3d(0, -2px, 0);
+}
+
+.autoplay-progress svg {
+  @apply absolute z-10 w-full h-full stroke-[4px] stroke-white fill-none -rotate-90 left-0 top-0;
+  --progress: 0;
+  stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
+  stroke-dasharray: 125.6;
+}
