@@ -6,6 +6,24 @@ const config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        poppins: ["var(--font-poppins)"],
+      },
+      fontSize: {
+        xs: ["0.75rem", { lineHeight: "1rem" }],
+        sm: ["0.875rem", { lineHeight: "1.25rem" }],
+        base: ["1rem", { lineHeight: "1.5rem" }],
+        lg: ["1.125rem", { lineHeight: "1.8rem" }],
+        xl: ["1.25rem", { lineHeight: "1.8rem" }],
+        "2xl": ["1.5rem", { lineHeight: "2rem" }],
+        "3xl": ["1.875rem", { lineHeight: "3rem" }],
+        "4xl": ["2.25rem", { lineHeight: "3rem" }],
+        "5xl": ["2.5rem", { lineHeight: "1.3" }],
+        "6xl": ["3.75rem", { lineHeight: "1" }],
+        "7xl": ["4.5rem", { lineHeight: "1" }],
+        "8xl": ["6rem", { lineHeight: "1" }],
+        "9xl": ["8rem", { lineHeight: "1" }],
+      },
       container: {
         center: true,
         padding: {
@@ -16,6 +34,9 @@ const config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+      },
+      backgroundImage: {
+        "about-pattern": "url('@/public/bg_1.png')",
       },
       keyframes: {
         fadeInUp2: {
