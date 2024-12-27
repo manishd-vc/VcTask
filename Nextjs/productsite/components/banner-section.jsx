@@ -53,7 +53,7 @@ const BannerSection = () => {
             }}
           >
             <SlideContent
-              subheading="On demand live support"
+              subheading="On demand live support e"
               mainHeading1="Start your online"
               mainHeading2="business today"
               description="We're a fully dedicated corporate service agency collaborating with brands all over the world."
