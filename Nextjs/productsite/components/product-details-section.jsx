@@ -25,31 +25,31 @@ export default function ProductDetailsSection({ productId }) {
               </thead>
               <tbody>
                 <tr>
-                  <td className="py-2">
+                  <td className="py-2 pr-3">
                     <strong>Material:</strong>
                   </td>
                   <td className="py-2">{product?.material}</td>
                 </tr>
                 <tr>
-                  <td className="py-2">
+                  <td className="py-2 pr-3">
                     <strong>Finish:</strong>
                   </td>
                   <td className="py-2">{product?.finish}</td>
                 </tr>
                 <tr>
-                  <td className="py-2">
+                  <td className="py-2 pr-3">
                     <strong>Type:</strong>
                   </td>
                   <td className="py-2">{product?.type}</td>
                 </tr>
                 <tr>
-                  <td className="py-2">
+                  <td className="py-2 pr-3">
                     <strong>Size:</strong>
                   </td>
                   <td className="py-2">{product?.size}</td>
                 </tr>
                 <tr>
-                  <td className="py-2">
+                  <td className="py-2 pr-3">
                     <strong>SuitableFor:</strong>
                   </td>
                   <td className="py-2">{product?.suitableFor}</td>
