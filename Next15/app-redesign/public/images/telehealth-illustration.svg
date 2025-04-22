@@ -1,0 +1,23 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background elements -->
+  <circle cx="120" cy="150" r="100" fill="#E6EFFF" opacity="0.5" />
+  <circle cx="280" cy="150" r="100" fill="#FFE6E6" opacity="0.5" />
+  
+  <!-- Laptop illustration -->
+  <rect x="100" y="120" width="200" height="120" rx="6" fill="#8884D8" />
+  <rect x="110" y="130" width="180" height="100" fill="#F5F5FF" />
+  
+  <!-- Play button -->
+  <circle cx="160" cy="180" r="20" fill="#B8B5FF" />
+  <polygon points="155,170 155,190 175,180" fill="white" />
+  
+  <!-- Small video in corner -->
+  <rect x="210" y="150" width="70" height="40" rx="4" fill="#E5E5FF" />
+  <polygon points="245,160 245,180 255,170" fill="#B8B5FF" />
+  
+  <!-- Person -->
+  <ellipse cx="360" cy="230" rx="40" ry="20" fill="#D0D0FF" opacity="0.5" />
+  <circle cx="360" cy="180" r="15" fill="#A5A6F6" />
+  <path d="M345 195 C345 220, 375 220, 375 195" fill="#A5A6F6" />
+  <rect x="340" y="200" width="40" height="30" fill="#A5A6F6" />
+</svg> 

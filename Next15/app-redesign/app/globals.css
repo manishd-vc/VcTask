@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #f8f9fa;
+  --card-foreground: #000000;
+  --primary: #45c1b8;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #e6f7f5;
+  --accent-foreground: #0f172a;
+  --destructive: #ef4444;
+  --destructive-foreground: #f8fafc;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #45c1b8;
+  --radius: 0.75rem;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.bottom-nav-item {
+  @apply flex flex-col items-center justify-center text-sm font-medium;
+}
+
+.bottom-nav-item.active {
+  @apply text-primary;
+}
+
+.card-item {
+  @apply py-4 transition-colors hover:bg-gray-50;
+}
+
+.notification-card {
+  @apply flex items-start gap-4 p-4 rounded-md;
+}
+
+.appointment-card {
+  @apply p-4 mb-4 rounded-md bg-white;
+}
