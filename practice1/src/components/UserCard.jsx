@@ -1,8 +1,15 @@
+import { Link } from 'react-router-dom'
+
 export function UserCard({ user, onEdit, onDelete, busy }) {
   return (
     <article className="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-slate-700 dark:bg-slate-900">
       <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
-        {user.name}
+        <Link
+          to={`/users/${user.id}`}
+          className="hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:hover:text-indigo-400"
+        >
+          {user.name}
+        </Link>
       </h3>
       <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">@{user.username}</p>
       <a

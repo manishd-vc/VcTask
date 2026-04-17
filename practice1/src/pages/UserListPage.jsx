@@ -1,62 +1,68 @@
-import { useMemo, useState, useCallback } from 'react'
-import { QueryErrorResetBoundary } from '@tanstack/react-query'
-import { toast } from 'sonner'
-import { AddEditModal } from '../components/AddEditModal'
-import { SearchBar } from '../components/SearchBar'
-import { UserList } from '../components/UserList'
-import { useUsers } from '../hooks/useUsers'
+import { useMemo, useState, useCallback } from "react";
+import { QueryErrorResetBoundary } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { AddEditModal } from "../components/AddEditModal";
+import { SearchBar } from "../components/SearchBar";
+import { UserList } from "../components/UserList";
+import { useUsers } from "../hooks/useUsers";
 
 /**
  * Assessment: User directory CRUD against JSONPlaceholder.
  * Page-scoped state (search, modal) lives here; server state stays in useUsers.
  */
 export default function UserListPage() {
-  const { usersQuery, createMutation, updateMutation, deleteMutation } = useUsers()
-  const [search, setSearch] = useState('')
-  const [modalOpen, setModalOpen] = useState(false)
-  const [editingUser, setEditingUser] = useState(null)
-  const [addModalCycle, setAddModalCycle] = useState(0)
+  const { usersQuery, createMutation, updateMutation, deleteMutation } =
+    useUsers();
+  const [search, setSearch] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
+  const [addModalCycle, setAddModalCycle] = useState(0);
 
   const openAddModal = useCallback(() => {
-    setEditingUser(null)
-    setAddModalCycle((c) => c + 1)
-    setModalOpen(true)
-  }, [])
+    setEditingUser(null);
+    setAddModalCycle((c) => c + 1);
+    setModalOpen(true);
+  }, []);
 
   const filteredUsers = useMemo(() => {
-    const list = usersQuery.data ?? []
-    const q = search.trim().toLowerCase()
-    if (!q) return list
-    return list.filter((u) => (u.name ?? '').toLowerCase().includes(q))
-  }, [usersQuery.data, search])
+    const list = usersQuery.data ?? [];
+    const q = search.trim().toLowerCase();
+    if (!q) return list;
+    return list.filter((u) => (u.name ?? "").toLowerCase().includes(q));
+  }, [usersQuery.data, search]);
 
   const mutationBusy =
-    createMutation.isPending || updateMutation.isPending || deleteMutation.isPending
+    createMutation.isPending ||
+    updateMutation.isPending ||
+    deleteMutation.isPending;
 
   async function handleSave(values) {
     try {
       if (editingUser?.id) {
-        await updateMutation.mutateAsync({ id: editingUser.id, payload: values })
-        toast.success('User updated successfully')
+        await updateMutation.mutateAsync({
+          id: editingUser.id,
+          payload: values,
+        });
+        toast.success("User updated successfully");
       } else {
-        await createMutation.mutateAsync(values)
-        toast.success('User added successfully')
+        await createMutation.mutateAsync(values);
+        toast.success("User added successfully");
       }
-      setModalOpen(false)
-      setEditingUser(null)
+      setModalOpen(false);
+      setEditingUser(null);
     } catch (err) {
-      toast.error(err?.message ?? 'Something went wrong')
-      throw err
+      toast.error(err?.message ?? "Something went wrong");
+      throw err;
     }
   }
 
   async function handleDelete(user) {
-    if (!window.confirm(`Delete ${user.name}? This cannot be undone.`)) return
+    if (!window.confirm(`Delete ${user.name}? This cannot be undone.`)) return;
     try {
-      await deleteMutation.mutateAsync(user.id)
-      toast.success('User deleted successfully')
+      await deleteMutation.mutateAsync(user.id);
+      toast.success("User deleted successfully");
     } catch (err) {
-      toast.error(err?.message ?? 'Delete failed')
+      toast.error(err?.message ?? "Delete failed");
     }
   }
 
@@ -83,7 +89,7 @@ export default function UserListPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-4 py-8">
+      <main className="mx-auto px-4 py-8">
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <SearchBar
             value={search}
@@ -99,13 +105,13 @@ export default function UserListPage() {
               isFetching={usersQuery.isFetching && !usersQuery.isLoading}
               error={usersQuery.isError ? usersQuery.error : null}
               onRetry={() => {
-                reset()
-                usersQuery.refetch()
+                reset();
+                usersQuery.refetch();
               }}
               users={filteredUsers}
               onEdit={(user) => {
-                setEditingUser(user)
-                setModalOpen(true)
+                setEditingUser(user);
+                setModalOpen(true);
               }}
               onDelete={handleDelete}
               hasActiveSearch={Boolean(search.trim())}
@@ -120,8 +126,8 @@ export default function UserListPage() {
         isOpen={modalOpen}
         onClose={() => {
           if (!mutationBusy) {
-            setModalOpen(false)
-            setEditingUser(null)
+            setModalOpen(false);
+            setEditingUser(null);
           }
         }}
         user={editingUser}
@@ -131,5 +137,5 @@ export default function UserListPage() {
         }
       />
     </div>
-  )
+  );
 }

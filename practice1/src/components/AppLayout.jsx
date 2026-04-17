@@ -23,6 +23,12 @@ export function AppLayout() {
             <NavLink to="/users" className={linkClass} end>
               User list
             </NavLink>
+            <NavLink to="/to-do-operation" className={linkClass}>
+              To-do operation
+            </NavLink>
+            <NavLink to="/table-data" className={linkClass}>
+              Table data
+            </NavLink>
           </nav>
         </div>
       </header>

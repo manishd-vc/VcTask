@@ -19,6 +19,15 @@ export async function fetchUsers() {
 }
 
 /**
+ * @param {number} id
+ * @returns {Promise<User>}
+ */
+export async function fetchUser(id) {
+  const { data } = await api.get(`/users/${id}`)
+  return data
+}
+
+/**
  * @param {Omit<User, 'id'>} payload
  * @returns {Promise<User>}
  */
