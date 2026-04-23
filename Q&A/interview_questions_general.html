@@ -20,7 +20,8 @@
       background: var(--bg2);
       color: var(--text); min-height: 100vh; font-size: 17px;
     }
-    .wrap { max-width: 1240px; margin: 0 auto; padding: 28px 18px 40px; }
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 28px 18px 40px; min-width: 0; }
+    .grid { min-width: 0; }
     .hero {
       background: linear-gradient(135deg, #eef2ff, #fdf2f8);
       border: 1px solid var(--line); border-radius: 28px; padding: 28px;
@@ -83,18 +84,20 @@
       color: #4338ca;
       font-weight: 600;
     }
-    .grid { display: grid; gap: 18px; }
+    .grid { display: grid; gap: 18px; min-width: 0; }
     .category {
       background: #ffffff; border: 1px solid var(--line);
       border-radius: 20px; padding: 20px; box-shadow: var(--shadow);
+      min-width: 0; overflow: hidden;
     }
-    .category-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 14px; }
-    .category-title { font-size: 20px; font-weight: 800; margin: 0; color: var(--text); }
+    .category-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 14px; flex-wrap: wrap; }
+    .category-title { font-size: 20px; font-weight: 800; margin: 0; color: var(--text); overflow-wrap: anywhere; }
     .category-count { color: var(--muted); font-size: 14px; }
     .q {
       background: #ffffff; border: 1px solid var(--line);
       border-radius: 14px; margin-top: 10px; overflow: hidden;
       transition: border-color .15s ease, box-shadow .15s ease;
+      min-width: 0;
     }
     .q:hover { border-color: #c7d2fe; box-shadow: var(--shadow-lg); }
     .q.open { border-color: #c7d2fe; }
@@ -105,7 +108,7 @@
       min-height: 36px;
     }
     .q-num { color: var(--muted); font-weight: 700; min-width: 28px; font-size: 14px; padding-top: 2px; }
-    .q-title { line-height: 1.55; font-size: 16px; font-weight: 600; color: var(--text); }
+    .q-title { line-height: 1.55; font-size: 16px; font-weight: 600; color: var(--text); min-width: 0; overflow-wrap: anywhere; word-break: break-word; }
     .meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
     .badge { font-size: 12px; padding: 5px 10px; border-radius: 999px; font-weight: 700; letter-spacing: .02em; }
     .b-e { background: #dcfce7; color: #15803d; }
@@ -118,6 +121,7 @@
       color: #374151; line-height: 1.85; font-size: 15px;
       border-top: 1px solid var(--line); margin-top: 4px;
       background: #fafbfc;
+      min-width: 0; overflow-wrap: anywhere; word-break: break-word;
     }
     .q.open .answer { display: block; }
     .answer strong { color: #111827; font-weight: 700; }
@@ -126,16 +130,28 @@
       text-transform: uppercase; color: var(--accent2); margin-top: 14px; margin-bottom: 6px;
     }
     .block-label:first-child { margin-top: 14px; }
-    .answer-text { margin-bottom: 10px; }
+    .answer-text { margin-bottom: 10px; overflow-wrap: anywhere; word-break: break-word; }
     .code-block {
       background: var(--code-bg); border: 1px solid var(--code-border);
       border-radius: 12px; padding: 14px 18px; overflow-x: auto;
       margin: 8px 0 4px; font-size: 13.5px; line-height: 1.65;
+      max-width: 100%;
     }
     .code-block code {
       font-family: 'Fira Code', 'Cascadia Code', 'Consolas', 'Monaco', monospace;
       color: var(--code-text); font-size: 13.5px; white-space: pre; display: block;
     }
+    .output-block {
+      background: #ecfdf5; border: 1px solid #a7f3d0;
+      border-radius: 12px; padding: 14px 18px; overflow-x: auto;
+      margin: 8px 0 4px; font-size: 13.5px; line-height: 1.65;
+      max-width: 100%;
+    }
+    .output-block code {
+      font-family: 'Fira Code', 'Cascadia Code', 'Consolas', 'Monaco', monospace;
+      color: #047857; font-size: 13.5px; white-space: pre; display: block;
+    }
+    .block-label.out { color: #047857; }
     .empty {
       padding: 28px; text-align: center; color: var(--muted);
       border: 1px dashed var(--line); border-radius: 16px;
@@ -184,8 +200,8 @@
       .badge { font-size: 11px; padding: 4px 8px; }
       .chev { font-size: 12px; }
       .answer { padding: 0 16px 16px 16px; font-size: 14.5px; }
-      .code-block { font-size: 12.5px; padding: 12px 14px; }
-      .code-block code { font-size: 12.5px; }
+      .code-block, .output-block { font-size: 12.5px; padding: 12px 14px; }
+      .code-block code, .output-block code { font-size: 12.5px; }
       .block-label { font-size: 10.5px; }
     }
 
@@ -207,7 +223,7 @@
     <div class="eyebrow">&#9733; Interview Prep Dashboard — Manish Detroja | 8 Years Experience</div>
     <h1>Frontend Interview Q&amp;A — JS, React, Next.js, TypeScript, HTML/CSS &amp; Live Coding</h1>
     <div class="sub">
-      Covers all major topics with 2-3 line answers in simple Indian English plus code examples. 110 questions across 6 categories. Company: Ahmedabad based. Click any question to expand the answer.
+      Covers all major topics with 2-3 line answers in simple Indian English plus code examples. 124 questions across 7 categories — now including Output Oriented tricky questions. Company: Ahmedabad based. Click any question to expand the answer.
     </div>
     <div class="topbar">
       <div class="search">
@@ -6046,6 +6062,405 @@ typing indicators in the chat module."
 // - What if the leader tab is frozen? -> heartbeat expiry triggers re-election
 // - What about incognito / different browsers? -> each browser is a separate user session
 // - Tests? -> unit tests for leader election state machine; manual QA across 4 tabs`}
+]},
+
+{cat:"Output Oriented Questions",qs:[
+
+{q:"What is the output of null == undefined?",d:"e",
+a:"Output is <strong>true</strong>. This is a special case in the JavaScript specification — with loose equality (==), null and undefined are considered equal only to each other and to nothing else. No type conversion happens here; it is a hard-coded rule in the ECMAScript spec. With strict equality (===) they are false because their types are different.",
+code:`console.log(null == undefined);   // true  (special rule)
+console.log(null === undefined);  // false (different types)
+console.log(null == null);        // true
+console.log(undefined == undefined); // true`,
+out:`true
+false
+true
+true`},
+
+{q:"What is the output of null == 0?",d:"m",
+a:"Output is <strong>false</strong>. This surprises many people because null is a falsy value just like 0. But the spec clearly says null is only loosely equal to null and undefined — nothing else. JavaScript does NOT convert null to a number during == comparison. However, null > -1 and null < 1 are both true because relational operators (<, >, <=, >=) DO convert null to 0. So null == 0 is false, but null >= 0 is true — very tricky!",
+code:`console.log(null == 0);   // false  (== doesn't coerce null)
+console.log(null < 1);    // true   (< coerces null to 0)
+console.log(null > -1);   // true
+console.log(null >= 0);   // true   (>= coerces to 0)
+console.log(null <= 0);   // true
+
+// So null is NOT equal to 0,
+// but null IS both >= 0 and <= 0 at the same time!`,
+out:`false
+true
+true
+true
+true`},
+
+{q:"Explain the output of each: [] == false, [] == ![], \"0\" == false, \" \" == 0, [] == 0, [1] == 1, [1,2] == \"1,2\", {} == \"[object Object]\"",d:"h",
+a:"All of these use the loose equality (==) operator which triggers type coercion. The rule for object vs primitive: object is converted to primitive by calling <strong>valueOf()</strong>, then <strong>toString()</strong>. Arrays and objects become strings — [] becomes \"\", [1] becomes \"1\", [1,2] becomes \"1,2\", {} becomes \"[object Object]\". Then both sides get converted to numbers (if one side is number or boolean). Step by step for each one below.",
+code:`// 1) [] == false
+// false -> 0 (boolean -> number)
+// []    -> "" -> 0 (array -> "" -> 0)
+// 0 == 0 -> true
+console.log([] == false);    // true
+
+// 2) [] == ![]
+// ![] -> false (any object is truthy, so !truthy = false)
+// Now: [] == false -> same as above -> true
+console.log([] == ![]);      // true  (famous WTF!)
+
+// 3) "0" == false
+// false -> 0
+// "0"   -> 0
+// 0 == 0 -> true
+console.log("0" == false);   // true
+
+// 4) " " == 0
+// " " -> 0  (whitespace string -> 0)
+// 0 == 0 -> true
+console.log(" " == 0);       // true
+
+// 5) [] == 0
+// [] -> "" -> 0
+// 0 == 0 -> true
+console.log([] == 0);        // true
+
+// 6) [1] == 1
+// [1] -> "1" -> 1
+// 1 == 1 -> true
+console.log([1] == 1);       // true
+
+// 7) [1,2] == "1,2"
+// [1,2].toString() -> "1,2"
+// "1,2" == "1,2" -> true
+console.log([1,2] == "1,2"); // true
+
+// 8) {} == "[object Object]"
+// {}.toString() -> "[object Object]"
+// "[object Object]" == "[object Object]" -> true
+console.log({} == "[object Object]"); // true
+
+// Bonus — null / undefined stay as is:
+console.log(null == undefined); // true
+console.log(null == 0);         // false (special rule)`,
+out:`true
+true
+true
+true
+true
+true
+true
+true
+true
+false`},
+
+{q:"Why is [] == ![] true? Walk through the coercion step by step.",d:"h",
+a:"This is one of the most infamous JavaScript quirks! Step 1 — evaluate <strong>![]</strong>: any object (including empty array) is truthy, so ![] becomes <strong>false</strong>. Step 2 — now the comparison becomes <strong>[] == false</strong>. Step 3 — when comparing object with boolean, the boolean is converted to number first: false becomes 0. Step 4 — now we have [] == 0. Step 5 — object is converted to primitive: [].toString() is \"\" (empty string). Step 6 — string compared with number, so string converts to number: \"\" becomes 0. Final: 0 == 0 is true!",
+code:`// Step-by-step breakdown of  [] == ![]
+// ============================================
+
+// Step 1: ![]
+// []  is truthy (it's an object reference)
+// !truthy = false
+// So  ![]  evaluates to  false
+
+// Now expression becomes:  [] == false
+
+// Step 2: boolean on one side -> convert to number
+// false -> 0
+// Expression:  [] == 0
+
+// Step 3: object on one side -> ToPrimitive([])
+// [].valueOf()  -> [] (still array, not primitive)
+// [].toString() -> ""   (empty string)
+// Expression:  "" == 0
+
+// Step 4: string and number -> convert string to number
+// Number("") -> 0
+// Expression:  0 == 0  ->  true
+
+console.log([] == ![]);    // true
+console.log([] == false);  // true
+console.log([] == 0);      // true
+console.log([] == "");     // true
+
+// Always use === to avoid this madness!
+console.log([] === false); // false`,
+out:`true
+true
+true
+true
+false`},
+
+{q:"What is the output of: var a; console.log(a); let a; console.log(a); const a; console.log(a);",d:"h",
+a:"This code throws a <strong>SyntaxError</strong> and nothing gets printed — the entire script fails at parse time. Two problems: (1) you cannot declare the same identifier with both var and let in the same scope — redeclaration is not allowed. (2) const must always be initialized at declaration — <code>const a;</code> itself is a SyntaxError even on its own. Let's see what happens for each piece independently.",
+code:`// Case A — all three in the same scope (the question):
+var a;
+console.log(a);
+let a;         // SyntaxError: Identifier 'a' has already been declared
+console.log(a);
+const a;       // also illegal by itself
+console.log(a);
+// Nothing runs — parser rejects whole script before execution.
+
+// ---- Now each snippet INDEPENDENTLY ----
+
+// 1) var on its own
+{ var a; console.log(a); }     // undefined  (hoisted, default value)
+
+// 2) let on its own
+{ let a; console.log(a); }     // undefined  (declared, no value yet)
+
+// 3) const on its own
+{ const a; console.log(a); }   // SyntaxError:
+// "Missing initializer in const declaration"
+// const MUST have a value at declaration time.`,
+out:`Whole script -> SyntaxError (nothing logged)
+
+If run separately:
+  var a    -> undefined
+  let a    -> undefined
+  const a  -> SyntaxError (must initialize)`},
+
+{q:"What is the output of: for(const i; i<3; i++) { console.log(i); } and for(let i; i<3; i++) { console.log(i); }?",d:"h",
+a:"Both look similar but behave very differently. The <strong>const</strong> version throws a <strong>SyntaxError</strong> immediately — const requires initialization, so <code>const i;</code> itself is invalid. The <strong>let</strong> version is syntactically valid: <code>let i;</code> means i is <code>undefined</code>. The condition <code>undefined < 3</code> becomes <code>NaN < 3</code> which is <code>false</code>, so the loop body never executes and there is <strong>no output</strong>. Bonus: even if you write <code>for(const i=0; i<3; i++)</code> with an initializer, you get a TypeError on <code>i++</code> because const cannot be reassigned.",
+code:`// 1) const version — from the question
+for (const i; i < 3; i++) {
+  console.log(i);
+}
+// SyntaxError: Missing initializer in const declaration
+// Nothing runs — fails at parse time.
+
+// 2) let version — from the question
+for (let i; i < 3; i++) {
+  console.log(i);
+}
+// i is undefined
+// undefined < 3  ->  Number(undefined) < 3  ->  NaN < 3  ->  false
+// Loop body NEVER executes  ->  no output.
+
+// 3) Even if you initialize const:
+for (const i = 0; i < 3; i++) {
+  console.log(i);
+}
+// Prints 0 once, then throws:
+// TypeError: Assignment to constant variable.
+// (the i++ in update tries to reassign)
+
+// 4) Correct — use let with initializer
+for (let i = 0; i < 3; i++) {
+  console.log(i);
+}
+// 0, 1, 2`,
+out:`const (no init):  SyntaxError — nothing logged
+
+let (no init):    no output (loop never runs)
+
+const i = 0:      0   then TypeError
+
+let  i = 0:       0
+                  1
+                  2`},
+
+{q:"What is the output of: console.log(x); var x = 5; console.log(y); let y = 10;",d:"m",
+a:"The first log prints <strong>undefined</strong> because <code>var x</code> is hoisted to the top and initialized with undefined. The second log throws a <strong>ReferenceError</strong> because <code>let y</code> is in the Temporal Dead Zone (TDZ) — it is hoisted but not initialized, so accessing it before the <code>let</code> line throws. Important distinction: var is hoisted and auto-initialized to undefined; let/const are hoisted but stay uninitialized until the declaration line is reached.",
+code:`console.log(x);    // undefined (var hoisted and initialized to undefined)
+var x = 5;
+
+console.log(y);    // ReferenceError: Cannot access 'y' before initialization
+let y = 10;
+
+// Engine sees the code as:
+// -------- Hoisting phase --------
+// var x;               // initialized to undefined
+// let y;               // in TDZ, uninitialized
+// -------- Execution phase --------
+// console.log(x);      // undefined
+// x = 5;
+// console.log(y);      // ReferenceError (still TDZ)
+// y = 10;`,
+out:`undefined
+ReferenceError: Cannot access 'y' before initialization`},
+
+{q:"What will be the output? console.log('1'); setTimeout(() => console.log('2'), 0); Promise.resolve().then(() => { console.log('3'); setTimeout(() => console.log('4'), 0); }); Promise.resolve().then(() => console.log('5')); console.log('6');",d:"h",
+a:"Output order is <strong>1, 6, 3, 5, 2, 4</strong>. The key concept is <strong>microtask queue vs macrotask queue</strong>. Synchronous code runs first (1 and 6). Then the microtask queue is drained <em>completely</em> before picking the next macrotask — so both .then callbacks run (3 and 5). The setTimeout scheduled inside the promise (for 4) is added AFTER the original setTimeout for 2, so 2 fires before 4. Rule to remember: <strong>sync -> all microtasks -> one macrotask -> all microtasks -> next macrotask</strong>.",
+code:`console.log("1");                          // sync
+
+setTimeout(() => console.log("2"), 0);     // macrotask A
+
+Promise.resolve().then(() => {             // microtask 1
+  console.log("3");
+  setTimeout(() => console.log("4"), 0);   // macrotask B (added here)
+});
+
+Promise.resolve().then(() => console.log("5")); // microtask 2
+
+console.log("6");                          // sync`,
+out:`1          <- sync
+6          <- sync
+3          <- microtask 1 (schedules macrotask B for "4")
+5          <- microtask 2
+2          <- macrotask A (was queued first)
+4          <- macrotask B (queued after "3" ran)
+
+// Timeline:
+// Call stack: 1 -> 6
+// Microtask queue drains: 3, 5
+// Macrotask queue runs: 2, then 4`},
+
+{q:"What will be the output? async function test() { console.log('A'); await Promise.resolve(); console.log('B'); } console.log('C'); test(); console.log('D');",d:"h",
+a:"Output is <strong>C, A, D, B</strong>. Step by step: first <code>console.log('C')</code> runs synchronously. Then <code>test()</code> is called — it logs 'A' synchronously until it hits <code>await</code>. The <code>await</code> pauses the function and schedules the continuation (the code after await) as a <strong>microtask</strong>, then returns control to the caller. Next, <code>console.log('D')</code> runs. After the current synchronous code finishes, the microtask queue is drained — the paused function resumes and logs 'B'.",
+code:`async function test() {
+  console.log("A");           // sync (runs when test() is called)
+  await Promise.resolve();    // pause here, rest becomes a microtask
+  console.log("B");           // runs after current sync + earlier microtasks
+}
+
+console.log("C");             // sync -> "C"
+test();                       // prints "A", then pauses at await
+console.log("D");             // sync -> "D"
+// --- call stack empty ---
+// Microtask: resume test() -> prints "B"`,
+out:`C
+A
+D
+B
+
+// Remember: everything AFTER await is like a .then callback
+// so it runs after the surrounding sync code finishes.`},
+
+{q:"Predict the output: Promise chain + async + setTimeout combined",d:"h",
+a:"Another classic ordering question combining all three async mechanisms. The rule stays the same: sync code first, then all microtasks (Promises, await continuations, queueMicrotask), then one macrotask (setTimeout), repeat. This question tests whether you truly understand that async/await continuations are microtasks, not macrotasks.",
+code:`console.log("start");
+
+setTimeout(() => console.log("timeout"), 0);
+
+(async function () {
+  console.log("async start");
+  await null;
+  console.log("async end");
+})();
+
+Promise.resolve().then(() => console.log("promise"));
+
+console.log("end");`,
+out:`start
+async start
+end
+async end
+promise
+timeout
+
+// Reasoning:
+// 1. "start"             (sync)
+// 2. setTimeout scheduled as macrotask
+// 3. IIFE runs: "async start" (sync), then await pauses
+// 4. .then queued as microtask
+// 5. "end"               (sync)
+// --- sync done, drain microtasks in order of queueing ---
+// 6. "async end"         (continuation after await null)
+// 7. "promise"           (.then callback)
+// --- all microtasks done, pick next macrotask ---
+// 8. "timeout"`},
+
+{q:"Classic closure in loop — what does this print? for (var i = 0; i < 3; i++) { setTimeout(() => console.log(i), 0); } vs using let",d:"m",
+a:"With <strong>var</strong>, the loop prints <strong>3, 3, 3</strong> because var is function-scoped — there is only ONE <code>i</code> shared by all three setTimeout callbacks. By the time the callbacks run (after the loop finishes), <code>i</code> is already 3. With <strong>let</strong>, the output is <strong>0, 1, 2</strong> because let is block-scoped — each iteration creates a fresh binding of <code>i</code>, and each callback closes over its own copy.",
+code:`// Case 1 — var (shared single binding)
+for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 0);
+}
+// Prints: 3, 3, 3
+
+// Case 2 — let (fresh binding per iteration)
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 0);
+}
+// Prints: 0, 1, 2
+
+// Old-school fix with var (using IIFE to create scope):
+for (var i = 0; i < 3; i++) {
+  (function (j) {
+    setTimeout(() => console.log(j), 0);
+  })(i);
+}
+// Prints: 0, 1, 2`,
+out:`var version:  3, 3, 3
+let version:  0, 1, 2
+IIFE fix:     0, 1, 2`},
+
+{q:"What is the output of typeof checks? typeof null, typeof undefined, typeof NaN, typeof [], typeof function(){}",d:"e",
+a:"Famous quirk: <strong>typeof null is 'object'</strong> — this is a well-known bug from the very first version of JavaScript that can never be fixed for backward compatibility. NaN is a number (it stands for 'Not a Number' but is of type number). Arrays report as 'object' — to check array use <code>Array.isArray()</code>. Functions report as 'function' which is actually a callable object.",
+code:`console.log(typeof null);           // "object"   (historical bug)
+console.log(typeof undefined);      // "undefined"
+console.log(typeof NaN);            // "number"
+console.log(typeof []);             // "object"
+console.log(typeof {});             // "object"
+console.log(typeof function(){});   // "function"
+console.log(typeof "hi");           // "string"
+console.log(typeof 42);             // "number"
+console.log(typeof true);           // "boolean"
+console.log(typeof Symbol());       // "symbol"
+console.log(typeof 10n);            // "bigint"
+
+// Correct way to check array:
+console.log(Array.isArray([]));     // true
+console.log(Array.isArray({}));     // false`,
+out:`object
+undefined
+number
+object
+object
+function
+string
+number
+boolean
+symbol
+bigint
+true
+false`},
+
+{q:"What is the output? console.log(0.1 + 0.2); console.log(0.1 + 0.2 === 0.3);",d:"e",
+a:"Output is <strong>0.30000000000000004</strong> and <strong>false</strong>. This is not a JavaScript bug — it is how IEEE 754 floating-point numbers work in almost all languages. Numbers like 0.1 and 0.2 cannot be represented exactly in binary. To compare floats safely, use a small epsilon: <code>Math.abs(a - b) < Number.EPSILON</code>.",
+code:`console.log(0.1 + 0.2);                // 0.30000000000000004
+console.log(0.1 + 0.2 === 0.3);        // false
+console.log(0.1 + 0.2 == 0.3);         // false
+
+// Safe comparison
+const equalEnough = (a, b) => Math.abs(a - b) < Number.EPSILON;
+console.log(equalEnough(0.1 + 0.2, 0.3)); // true
+
+// Or round to fixed decimals
+console.log((0.1 + 0.2).toFixed(2));    // "0.30"`,
+out:`0.30000000000000004
+false
+false
+true
+0.30`},
+
+{q:"Tricky output: console.log(+[]); console.log(+{}); console.log([] + []); console.log([] + {}); console.log({} + []);",d:"h",
+a:"These use the unary + and binary + operators to trigger coercion. <code>+[]</code> converts [] to \"\" then to 0. <code>+{}</code> converts {} to \"[object Object]\" which becomes NaN. <code>[] + []</code> concatenates two empty strings -> empty string. <code>[] + {}</code> becomes \"[object Object]\". For <code>{} + []</code> in the browser console it is the number 0 because <code>{}</code> is parsed as an empty block, not object — but inside an expression (like <code>console.log</code>), it's the object and result is \"[object Object]\".",
+code:`console.log(+[]);          // 0     ([] -> "" -> 0)
+console.log(+{});          // NaN   ({} -> "[object Object]" -> NaN)
+console.log([] + []);      // ""    ("" + "" = "")
+console.log([] + {});      // "[object Object]"
+console.log({} + []);      // "[object Object]" (inside console.log())
+
+// Statement context is different!
+// At the start of a line, {} is parsed as empty block:
+// {} + [];   // -> +[] -> 0  (in REPL / raw statement)
+// But with console.log(...) it's always an expression, so object.
+
+console.log([1,2] + [3,4]); // "1,23,4"  (strings concatenated)
+console.log([1] + 1);       // "11"
+console.log(1 + [1]);       // "11"
+console.log(1 + {});        // "1[object Object]"`,
+out:`0
+NaN
+""
+"[object Object]"
+"[object Object]"
+"1,23,4"
+"11"
+"11"
+"1[object Object]"`}
+
 ]}
 ];
 
@@ -6134,6 +6549,7 @@ function render() {
             <div class="block-label">Answer</div>
             <div class="answer-text">${q.a}</div>
             ${q.code ? `<div class="block-label">Example:</div><pre class="code-block"><code>${escapeHtml(q.code)}</code></pre>` : ""}
+            ${q.out ? `<div class="block-label out">Output:</div><pre class="output-block"><code>${escapeHtml(q.out)}</code></pre>` : ""}
           </div>
         </article>
       `).join("")}

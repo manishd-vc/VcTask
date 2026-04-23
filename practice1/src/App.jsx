@@ -5,6 +5,7 @@ import TableDataPage from './pages/TableDataPage.jsx'
 import TodoOperationPage from './pages/TodoOperationPage.jsx'
 import UserDetailPage from './pages/UserDetailPage.jsx'
 import UserListPage from './pages/UserListPage.jsx'
+import PokemonData from './pages/PokemonData.jsx'
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="users/:userId" element={<UserDetailPage />} />
           <Route path="to-do-operation" element={<TodoOperationPage />} />
           <Route path="table-data" element={<TableDataPage />} />
+          <Route path="pokemon-data" element={<PokemonData />} />
         </Route>
         <Route path="*" element={<Navigate to="/users" replace />} />
       </Routes>
