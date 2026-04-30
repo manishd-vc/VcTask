@@ -1,0 +1,61 @@
+import { Grid, Paper, Stack, Typography } from '@mui/material';
+import { fDateWithLocale } from 'src/utils/formatTime';
+
+/**
+ * RecordDetails component displays detailed information about the donor intent.
+ * It fetches donor data from the Redux store and formats the values for display.
+ *
+ * @returns {JSX.Element} The component rendering the donor details.
+ */
+const RecordDetails = ({ data }) => {
+  return (
+    <>
+      <Paper sx={{ p: 3, my: 3 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6} md={6} lg={3}>
+            <Stack direction="column" gap={0.5}>
+              <Typography variant="body3" color="text.secondary">
+                Record Created By
+              </Typography>
+              <Typography variant="subtitle4" color="text.secondarydark" textTransform="capitalize">
+                {data?.createdByName || '-'}
+              </Typography>
+            </Stack>
+          </Grid>
+          <Grid item xs={12} sm={6} md={6} lg={3}>
+            <Stack direction="column" gap={0.5}>
+              <Typography variant="body3" color="text.secondary">
+                Record Created On
+              </Typography>
+              <Typography variant="subtitle4" color="text.secondarydark">
+                {data?.createdOn ? fDateWithLocale(data?.createdOn) : '-'}
+              </Typography>
+            </Stack>
+          </Grid>
+          <Grid item xs={12} sm={6} md={6} lg={3}>
+            <Stack direction="column" gap={0.5}>
+              <Typography variant="body3" color="text.secondary">
+                Record Updated By
+              </Typography>
+              <Typography variant="subtitle4" color="text.secondarydark">
+                {data?.updatedByName || '-'}
+              </Typography>
+            </Stack>
+          </Grid>
+          <Grid item xs={12} sm={6} md={6} lg={3}>
+            <Stack direction="column" gap={0.5}>
+              <Typography variant="body3" color="text.secondary">
+                Record Updated On
+              </Typography>
+              <Typography variant="subtitle4" color="text.secondarydark">
+                {data?.updatedOn ? fDateWithLocale(data?.updatedOn) : '-'}
+              </Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+      </Paper>
+    </>
+  );
+};
+
+export default RecordDetails;

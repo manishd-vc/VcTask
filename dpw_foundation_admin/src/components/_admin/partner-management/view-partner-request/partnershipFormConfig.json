@@ -1,0 +1,186 @@
+{
+  "formTitle": "Complete Partnership Request",
+  "sections": [
+    {
+      "id": "main_questions",
+      "title": null,
+      "questions": [
+        {
+          "id": "agreementSignedArchived",
+          "type": "radio",
+          "question": "Is the partnership agreement officially signed and activated?",
+          "options": [
+            { "value": true, "label": "Yes" },
+            { "value": false, "label": "No" }
+          ],
+          "required": true,
+          "defaultValue": false
+        },
+        {
+          "id": "deliverablesCompleted",
+          "type": "radio",
+          "question": "Have all agreed upon deliverables been completed?",
+          "options": [
+            { "value": true, "label": "Yes" },
+            { "value": false, "label": "No" }
+          ],
+          "required": true,
+          "defaultValue": false
+        },
+        {
+          "id": "financialObligationsMet",
+          "type": "radio",
+          "question": "Were all financial obligations met by both parties?",
+          "options": [
+            { "value": true, "label": "Yes" },
+            { "value": false, "label": "No" }
+          ],
+          "required": true,
+          "defaultValue": false
+        },
+        {
+          "id": "disputesUnresolvedIssues",
+          "type": "radio",
+          "question": "Were there any disputes or unresolved issues?",
+          "options": [
+            { "value": true, "label": "Yes" },
+            { "value": false, "label": "No" }
+          ],
+          "required": true,
+          "defaultValue": true
+        },
+        {
+          "id": "disputesResolution",
+          "type": "textarea",
+          "question": "If disputes exist, how were they resolved?",
+          "placeholder": "Details",
+          "rows": 4,
+          "required": false,
+          "showWhen": {
+            "field": "disputesUnresolvedIssues",
+            "value": true
+          }
+        },
+        {
+          "id": "finalReviewMeetingConducted",
+          "type": "radio",
+          "question": "Has a final review meeting been conducted with the partner?",
+          "options": [
+            { "value": true, "label": "Yes" },
+            { "value": false, "label": "No" }
+          ],
+          "required": true,
+          "defaultValue": true,
+          "hasButton": {
+            "id": "momAttachmentId",
+            "text": "Attach MOM",
+            "variant": "contained",
+            "color": "primary",
+            "size": "small",
+            "sx": { "mt": 1, "backgroundColor": "#4A5D23" },
+            "showWhen": {
+              "field": "finalReviewMeetingConducted",
+              "value": true
+            }
+          }
+        },
+        {
+          "id": "partnershipConclusionApprover",
+          "type": "textarea",
+          "question": "Who approved the conclusion of this partnership?",
+          "placeholder": "Details",
+          "rows": 3,
+          "required": false
+        },
+        {
+          "id": "performanceReviewConducted",
+          "type": "radio",
+          "question": "Was a partnership performance review conducted internally?",
+          "options": [
+            { "value": true, "label": "Yes" },
+            { "value": false, "label": "No" }
+          ],
+          "required": true,
+          "defaultValue": true,
+          "hasButton": {
+            "id": "scoringSheetAttachmentId",
+            "text": "Attachment",
+            "variant": "contained",
+            "color": "primary",
+            "size": "small",
+            "sx": { "mt": 1 },
+            "showWhen": {
+              "field": "performanceReviewConducted",
+              "value": true
+            }
+          }
+        },
+        {
+          "id": "keyOutcomesSummary",
+          "type": "textarea",
+          "question": "Please summarize the key outcomes of this partnership:",
+          "placeholder": "Details",
+          "rows": 4,
+          "required": false
+        },
+        {
+          "id": "strategicObjectivesMet",
+          "type": "radio",
+          "question": "Did this partnership meet its strategic objectives?",
+          "options": [
+            { "value": true, "label": "Yes" },
+            { "value": false, "label": "No" }
+          ],
+          "required": true,
+          "defaultValue": true
+        },
+        {
+          "id": "objectivesBlockers",
+          "type": "textarea",
+          "question": "If objectives weren't fully met, what were the main blockers?",
+          "placeholder": "Details",
+          "rows": 3,
+          "required": false,
+          "showWhen": {
+            "field": "strategicObjectivesMet",
+            "value": false
+          }
+        },
+        {
+          "id": "partnerFeedbackCollected",
+          "type": "radio",
+          "question": "Was feedback collected from the partner?",
+          "options": [
+            { "value": true, "label": "Yes" },
+            { "value": false, "label": "No" }
+          ],
+          "required": true,
+          "defaultValue": true,
+          "hasButton": {
+            "id": "feedbackAttachmentId",
+            "text": "Attachment",
+            "variant": "contained",
+            "color": "primary",
+            "size": "small",
+            "sx": { "mt": 1 },
+            "showWhen": {
+              "field": "partnerFeedbackCollected",
+              "value": true
+            }
+          }
+        },
+        {
+          "id": "recommendFutureCollaboration",
+          "type": "radio",
+          "question": "Do you recommend future collaboration with this partner?",
+          "options": [
+            { "value": true, "label": "Yes" },
+            { "value": false, "label": "No" }
+          ],
+          "required": true,
+          "defaultValue": true
+        }
+      ]
+    }
+  ]
+}

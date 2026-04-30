@@ -1,0 +1,40 @@
+.jodit-workplace {
+  color: #000;
+}
+.jodit-workplace ul,
+.jodit-workplace ol {
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.jodit-workplace p {
+  margin-bottom: 1rem;
+}
+.ql-editor p {
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+.ql-editor ul li,
+.ql-editor ol li {
+  line-height: 1.7;
+}
+
+.ql-editor ul,
+.ql-editor ol {
+  margin-bottom: 1rem;
+  margin-left: 2rem;
+}
+
+.jodit-status-bar .jodit-status-bar__item.jodit-status-bar__item-right {
+  display: none !important;
+}
+.jodit-workplace table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+.jodit-workplace th,
+.jodit-workplace td {
+  padding: 0.5rem;
+  text-align: left;
+}

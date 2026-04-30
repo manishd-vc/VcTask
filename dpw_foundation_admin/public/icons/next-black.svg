@@ -1,0 +1,19 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icons/32px/Arrow-Right" opacity="0.3">
+<path id="Vector 480" d="M16.3688 28L28.2891 16.0215L16.2891 4" stroke="url(#paint0_linear_3284_3342)" stroke-width="0.968432" stroke-linecap="square"/>
+<path id="Vector 481" d="M27.1328 16.044L3.00161 16.0439" stroke="url(#paint1_linear_3284_3342)" stroke-width="0.968432" stroke-linecap="square"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_3284_3342" x1="22.7327" y1="28.0537" x2="22.7327" y2="3.88133" gradientUnits="userSpaceOnUse">
+<stop stop-color="#0F0F19" stop-opacity="0"/>
+<stop offset="0.1875" stop-color="#0F0F19"/>
+<stop offset="0.5" stop-color="#0F0F19"/>
+<stop offset="0.817708" stop-color="#0F0F19"/>
+<stop offset="1" stop-color="#0F0F19" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="paint1_linear_3284_3342" x1="20.0284" y1="16.1125" x2="4.09329" y2="16.1125" gradientUnits="userSpaceOnUse">
+<stop stop-color="#0F0F19"/>
+<stop offset="1" stop-color="#0F0F19" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>

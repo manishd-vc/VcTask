@@ -1,0 +1,193 @@
+stages:
+  - secret-scan
+  - trivy-scan
+  - sonarqube-check
+  - sonarqube-vulnerability-report
+  - Build
+  - Deploy
+
+variables:
+  IMAGE_NAME: 'dpw/web'
+  TAG: 'latest'
+  CONTAINERNAME: 'web'
+  PORT: '3000'
+  SONAR_USER_HOME: '${CI_PROJECT_DIR}/.sonar'
+  GIT_DEPTH: '0'
+
+# Stage 0: Secret Scan with Gitleaks via Docker
+gitleaks-scan:
+  stage: secret-scan
+  tags:
+    - srvdpwfdev
+  script:
+    - echo "Running Gitleaks scan using Docker container (only current files)..."
+    - |
+      docker run --rm -v "$PWD:/repo" -w /repo zricethezav/gitleaks:latest detect \
+        --source=. --no-git \
+        --verbose --redact \
+        --report-format=json --report-path=gitleaks-report.json --exit-code 1 || export GITLEAKS_EXIT=1
+    - echo "========== Gitleaks Report =========="
+    - cat gitleaks-report.json || echo "No report file found."
+    - echo "========== End of Gitleaks Report =========="
+    - test "${GITLEAKS_EXIT:-0}" -eq 1 && exit 1 || true
+  allow_failure: true
+  artifacts:
+    paths:
+      - gitleaks-report.json
+    when: always
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "Devops-CICD"'
+    - if: '$CI_COMMIT_BRANCH == "gitleak-sonar"'
+    - if: '$CI_COMMIT_BRANCH == "dev-dpw-foundation"'
+    - if: '$CI_COMMIT_BRANCH == "fatemap/web_dev"'
+    - if: '$CI_COMMIT_BRANCH == "kamlesh/dpw-web-ui"'
+trivy-code-scan:
+  stage: trivy-scan
+  tags:
+    - srvdpwfdev
+  script:
+    - echo "Installing Trivy CLI locally..."
+    - mkdir -p trivy-bin
+    - curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b trivy-bin
+    - export PATH="$PWD/trivy-bin:$PATH"
+    - echo "Running Trivy for filesystem (code/dependency) scan..."
+    - trivy fs . --scanners vuln,secret,config --exit-code 0 --format json --output trivy-code-report.json
+    - cat trivy-code-report.json || echo "No report generated"
+  artifacts:
+    paths:
+      - trivy-code-report.json
+    when: always
+  allow_failure: true
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "trivy-POC"'
+    - if: '$CI_COMMIT_BRANCH == "dev-dpw-foundation"'
+
+sonarqube-check:
+  stage: sonarqube-check
+  tags:
+    - srvdpwfdev
+  script:
+    - echo "Installing SonarScanner CLI..."
+    - |
+      SONAR_SCANNER_VERSION=5.0.1.3006
+      wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip
+      unzip -q sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip
+      export PATH=$PWD/sonar-scanner-${SONAR_SCANNER_VERSION}-linux/bin:$PATH
+    - |
+      echo "Running SonarQube analysis and checking Quality Gate..."
+
+      SCAN_OUTPUT=$(mktemp)
+      sonar-scanner \
+        -Dsonar.projectKey=dpw_foundation_dpw_foundation_web \
+        -Dsonar.sources=src \
+        -Dsonar.inclusions=**/*.js,**/*.ts,**/*.jsx,**/*.tsx \
+        -Dsonar.exclusions=**/node_modules/**,**/*.test.* \
+        -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+        -Dsonar.sourceEncoding=UTF-8 \
+        -Dsonar.login=${SONAR_TOKEN1} \
+        -Dsonar.host.url=${SONAR_HOST_URL1} | tee $SCAN_OUTPUT
+
+      TASK_URL=$(grep -oP 'More about the report processing at \K.*' $SCAN_OUTPUT)
+      echo "Task URL: $TASK_URL"
+
+      TASK_ID=$(echo "$TASK_URL" | grep -oP 'id=\K[^ ]+')
+      echo "Task ID: $TASK_ID"
+
+      echo "Waiting for SonarQube to process analysis..."
+      MAX_WAIT=300   # max wait in seconds
+      WAITED=0
+      STATUS=$(curl -s -u "${SONAR_TOKEN1}:" "${SONAR_HOST_URL1}/api/ce/task?id=${TASK_ID}" | jq -r '.task.status')
+
+      while [[ "$STATUS" == "PENDING" || "$STATUS" == "IN_PROGRESS" ]]; do
+        if (( WAITED >= MAX_WAIT )); then
+          echo "⚠️ SonarQube still processing after $MAX_WAIT seconds, continuing..."
+          break
+        fi
+        sleep 5
+        WAITED=$((WAITED+5))
+        STATUS=$(curl -s -u "${SONAR_TOKEN1}:" "${SONAR_HOST_URL1}/api/ce/task?id=${TASK_ID}" | jq -r '.task.status')
+        echo "Waiting... $WAITED seconds - Task status: $STATUS"
+      done
+
+      if [[ "$STATUS" != "SUCCESS" ]]; then
+        echo "❌ SonarQube task ended with status: $STATUS"
+        exit 1
+      fi
+
+      ANALYSIS_ID=$(curl -s -u "${SONAR_TOKEN1}:" "${SONAR_HOST_URL1}/api/ce/task?id=${TASK_ID}" | jq -r '.task.analysisId')
+      GATE_STATUS=$(curl -s -u "${SONAR_TOKEN1}:" "${SONAR_HOST_URL1}/api/qualitygates/project_status?analysisId=${ANALYSIS_ID}" | jq -r '.projectStatus.status')
+
+      echo "Quality Gate status: $GATE_STATUS"
+      if [[ "$GATE_STATUS" != "OK" ]]; then
+        echo "❌ Quality Gate FAILED!"
+        exit 1
+      else
+        echo "✅ Quality Gate PASSED!"
+      fi
+  allow_failure: true
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev-dpw-foundation"'
+    - if: '$CI_COMMIT_BRANCH == "PalakT/dev-dpw-foundation-UI"'
+    - if: '$CI_COMMIT_BRANCH == "manishd/uat-issues"'
+    - if: '$CI_COMMIT_BRANCH == "fatema/web_dev"'
+    - if: '$CI_COMMIT_BRANCH == "pankajc/beneficiary-module"'
+    - if: '$CI_COMMIT_BRANCH == "kamlesh/dpw-web-ui"'
+    - if: '$CI_COMMIT_BRANCH == "nehalm/bugs"'
+    - if: '$CI_COMMIT_BRANCH == "fatemap/bugs_profile"'
+    - if: '$CI_COMMIT_BRANCH == "fatema/new_beneficiary"'
+    - if: '$CI_COMMIT_BRANCH == "tushar/logged-hours"'
+    - if: '$CI_COMMIT_BRANCH == "tushar/bug-fix"'
+
+sonarqube-vulnerability-report:
+  stage: sonarqube-vulnerability-report
+  tags:
+    - srvdpwfdev
+  script:
+    - >
+      curl -H "Authorization: Bearer ${SONAR_TOKEN1}" "${SONAR_HOST_URL1}/api/issues/gitlab_sast_export?projectKey=dpw_foundation_dpw_foundation_api_user&branch=${CI_COMMIT_BRANCH}&pullRequest=${CI_MERGE_REQUEST_IID}" -o gl-sast-sonar-report.json
+  allow_failure: false
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'gitleak-sonar'
+    - if: $CI_COMMIT_BRANCH == 'dev-dpw-foundation'
+    - if: '$CI_COMMIT_BRANCH == "pankajc/beneficiary-module"'
+    - if: '$CI_COMMIT_BRANCH == "PalakT/dev-dpw-foundation-UI"'
+    - if: '$CI_COMMIT_BRANCH == "manishd/uat-issues"'
+    - if: '$CI_COMMIT_BRANCH == "kamlesh/dpw-web-ui"'
+    - if: '$CI_COMMIT_BRANCH == "nehalm/bugs"'
+    - if: '$CI_COMMIT_BRANCH == "fatemap/bugs_profile"'
+    - if: '$CI_COMMIT_BRANCH == "fatema/new_beneficiary"'
+    - if: '$CI_COMMIT_BRANCH == "tushar/logged-hours"'
+    - if: '$CI_COMMIT_BRANCH == "tushar/bug-fix"'
+
+  artifacts:
+    expire_in: 1 day
+    reports:
+      sast: gl-sast-sonar-report.json
+
+# Stage 1: Build
+Build:
+  stage: Build
+  tags:
+    - srvdpwfdev # Specify the runner tag
+  script:
+    - echo "Building Docker image"
+    - docker build -t $IMAGE_NAME:$TAG .
+  dependencies:
+    - sonarqube-check # Run only if sonarqube-check is successful
+  needs:
+    - sonarqube-check
+  when: manual
+
+# Stage 2: Deploy
+Deploy:
+  stage: Deploy
+  tags:
+    - srvdpwfdev # Specify the runner tag
+  script:
+    - echo "Checking if container $CONTAINERNAME is already running"
+    - if [ "$(docker ps -aq -f name=$CONTAINERNAME)" ]; then docker rm -f $CONTAINERNAME; fi
+    - echo "Running tests on Docker image"
+    - docker run --name $CONTAINERNAME -p $PORT:3000 -e SECRET_KEY="$SECRET_KEY" -itd $IMAGE_NAME:$TAG
+  when: manual
+  dependencies:
+    - Build

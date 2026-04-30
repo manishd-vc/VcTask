@@ -1,0 +1,11 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icons/32px/Arrow-Down">
+<path id="Vector 90" d="M5 10L16 22L27 10" stroke="url(#paint0_linear_2835_11946)" stroke-linecap="square" stroke-linejoin="round"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_2835_11946" x1="16" y1="14.3125" x2="16" y2="10.375" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="1" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>

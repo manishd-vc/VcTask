@@ -1,0 +1,8 @@
+.ql-editor p {
+  margin-bottom: 1rem;
+}
+.ql-editor ul,
+.ql-editor ol {
+  margin-bottom: 1rem;
+  margin-left: 2rem;
+}
